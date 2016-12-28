@@ -13,9 +13,8 @@ var GitComponent = React.createClass({
   render: function() {
     return(
       <div> 
-         <h1> Git Component </h1>
          <img src={this.state.avatar_url} width="80"></img>
-         <h3> {this.props.login} </h3>
+         <h3> Hi {this.props.login} </h3>
          <hr />
       </div>
       );
@@ -24,13 +23,18 @@ var GitComponent = React.createClass({
 
 
 var MainComponent = React.createClass({
+  getInitialState: function() {
+    return {logins: ["avinashrahul", "akannur", "ManojKumar99", "abhihn"]}
+  },
   render: function() {
-    return(
-      <div>
-        <GitComponent login="avinashrahul"/>
-        <GitComponent login="guru"/>
-      </div>
-      )
+    var cards = this.state.logins.map(function(login){
+      return(<GitComponent login={login} />);
+    });
+      return(
+        <div>
+          {cards}
+        </div>
+      );
   }
 });
 
