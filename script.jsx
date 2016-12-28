@@ -21,17 +21,39 @@ var GitComponent = React.createClass({
   }
 });
 
+var FormComponent = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var inputElement = this.refs.login;
+    this.props.addcard(inputElement.value);
+    inputElement.value = '';
+  },
+  render: function() {
+    return(
+      <form onSubmit={this.handleSubmit}>
+        <input placeholder="Github login" ref="login"/>
+        <button> Add </button>
+      </form>
+      );
+  }
+});
 
 var MainComponent = React.createClass({
   getInitialState: function() {
-    return {logins: ["avinashrahul", "akannur", "ManojKumar99", "abhihn"]}
+    return {logins: []}
   },
+  
+  addCard: function(card) {
+    this.setState({logins: this.state.logins.concat(card)});
+  },
+  
   render: function() {
     var cards = this.state.logins.map(function(login){
       return(<GitComponent login={login} />);
     });
       return(
         <div>
+          <FormComponent addcard={this.addCard}/>
           {cards}
         </div>
       );
